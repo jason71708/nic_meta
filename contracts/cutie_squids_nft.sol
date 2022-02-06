@@ -91,6 +91,10 @@ contract CutieSquidsCollection is ERC721Enumerable, Ownable {
             string(abi.encodePacked(base, tokenId.toString(), baseExtension));
     }
 
+    function contractURI() public view returns (string memory) {
+        return "https://metadata-url.com/my-metadata";
+    }
+
     // internal
     function _baseURI() internal view virtual override returns (string memory) {
         return baseURI;
