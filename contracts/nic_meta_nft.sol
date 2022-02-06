@@ -6,16 +6,16 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract NicMeta is ERC721Enumerable, Ownable {
+contract CutieSquidsCollection is ERC721Enumerable, Ownable {
     using Strings for uint256;
 
-    bool public _isSaleActive = false;
+    bool public _isSaleActive = true;
     bool public _revealed = false;
 
     // Constants
-    uint256 public constant MAX_SUPPLY = 10;
-    uint256 public mintPrice = 0.3 ether;
-    uint256 public maxBalance = 1;
+    uint256 public constant MAX_SUPPLY = 108;
+    uint256 public mintPrice = 0.1 ether;
+    uint256 public maxBalance = 108;
     uint256 public maxMint = 1;
 
     string baseURI;
@@ -25,18 +25,18 @@ contract NicMeta is ERC721Enumerable, Ownable {
     mapping(uint256 => string) private _tokenURIs;
 
     constructor(string memory initBaseURI, string memory initNotRevealedUri)
-        ERC721("Nic Meta", "NM")
+        ERC721("Cutie Squids Collection", "CSC")
     {
         setBaseURI(initBaseURI);
         setNotRevealedURI(initNotRevealedUri);
     }
 
-    function mintNicMeta(uint256 tokenQuantity) public payable {
+    function mintNFT(uint256 tokenQuantity) public payable {
         require(
             totalSupply() + tokenQuantity <= MAX_SUPPLY,
             "Sale would exceed max supply"
         );
-        require(_isSaleActive, "Sale must be active to mint NicMetas");
+        require(_isSaleActive, "Sale must be active to mint Cutie Squids NFTs");
         require(
             balanceOf(msg.sender) + tokenQuantity <= maxBalance,
             "Sale would exceed max balance"
@@ -47,10 +47,10 @@ contract NicMeta is ERC721Enumerable, Ownable {
         );
         require(tokenQuantity <= maxMint, "Can only mint 1 tokens at a time");
 
-        _mintNicMeta(tokenQuantity);
+        _mintNFT(tokenQuantity);
     }
 
-    function _mintNicMeta(uint256 tokenQuantity) internal {
+    function _mintNFT(uint256 tokenQuantity) internal {
         for (uint256 i = 0; i < tokenQuantity; i++) {
             uint256 mintIndex = totalSupply();
             if (totalSupply() < MAX_SUPPLY) {
