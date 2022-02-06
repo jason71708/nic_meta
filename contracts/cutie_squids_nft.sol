@@ -21,14 +21,16 @@ contract CutieSquidsCollection is ERC721Enumerable, Ownable {
     string baseURI;
     string public notRevealedUri;
     string public baseExtension = ".json";
+    string public contractUri;
 
     mapping(uint256 => string) private _tokenURIs;
 
-    constructor(string memory initBaseURI, string memory initNotRevealedUri)
+    constructor(string memory initBaseURI, string memory initNotRevealedUri, string memory initContractUri)
         ERC721("Cutie Squids Collection", "CSC")
     {
         setBaseURI(initBaseURI);
         setNotRevealedURI(initNotRevealedUri);
+        setContractMetaURI(initContractUri);
     }
 
     function mintNFT(uint256 tokenQuantity) public payable {
@@ -92,7 +94,7 @@ contract CutieSquidsCollection is ERC721Enumerable, Ownable {
     }
 
     function contractURI() public view returns (string memory) {
-        return "https://metadata-url.com/my-metadata";
+        return contractUri;
     }
 
     // internal
@@ -134,6 +136,10 @@ contract CutieSquidsCollection is ERC721Enumerable, Ownable {
 
     function setMaxMint(uint256 _maxMint) public onlyOwner {
         maxMint = _maxMint;
+    }
+
+    function setContractMetaURI(string memory _contractURI) public onlyOwner {
+        contractUri = _contractURI;
     }
 
     function withdraw(address to) public onlyOwner {
